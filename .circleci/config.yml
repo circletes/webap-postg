@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   build:
-    executor: machine
+    executor: default
     steps:
      - checkout
      - run: 
