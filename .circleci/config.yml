@@ -35,7 +35,10 @@ workflows:
   version: 2.1
   build_and_push:
     jobs:
-      - build
+      - build:
+         filters:
+           branches:
+             only: main
       - push:
         requirs:
           - build
