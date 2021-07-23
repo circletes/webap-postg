@@ -19,7 +19,8 @@ jobs:
            curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
            sudo apt-get update
            sudo apt-get install -y google-cloud-sdk
-           echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file gcloud_service_key.txt
+           echo $GCLOUD_SERVICE_KEY > ${HOME}/circleci/gcloud_service_key.txt
+           gcloud auth activate-service-account --key-file=${HOME}/circleci/gcloud_service_key.txt
            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
            docker push eu.gcr.io ${GOOGLE_PROJECT_ID} webbb
