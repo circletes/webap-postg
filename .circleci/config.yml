@@ -15,6 +15,7 @@ jobs:
          name: Installing gcloud sdk and push images gcr
          command: |
            sudo apt update
+
            sudo apt install -y python-pip
            sudo pip install pyopenssl
            sudo apt-get install apt-transport-https ca-certificates gnupg
@@ -25,6 +26,15 @@ jobs:
            echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud_service_key.txt
            cat ${HOME}/gcloud_service_key.txt
            sleep 10
+           sudo apt-get remove python-virtualenv python-openssl python3-openssl
+           sudo apt-get update
+           sudo apt-get install -y python-openssl python3-openssl
+           sudo rm -rf /opt/google-cloud-sdk/
+           export CLOUDSDK_CORE_DISABLE_PROMPTS=1
+           export CLOUDSDK_PYTHON_SITEPACKAGES=1
+           curl https://sdk.cloud.google.com | bash
+           source ~/.bashrc
+           export CLOUDSDK_CORE_DISABLE_PROMPTS=0
            gcloud auth activate-service-account ${GCLOUD_EMAIL} --key-file=${HOME}/gcloud_service_key.txt --project=${GOOGLE_PROJECT_ID}
            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
