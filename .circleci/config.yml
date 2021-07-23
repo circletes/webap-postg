@@ -14,8 +14,15 @@ jobs:
      - run:
          name: Installing gcloud sdk and push images gcr
          command: |
-           sudo apt install -y python3
+           sudo apt update
+           cd /usr/src
+           sudo wget https://www.python.org/ftp/python/3.7.9/Python-3.7.9.tgz
            echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+           sudo tar xzf Python-3.7.9.tgz
+           cd Python-3.7.9
+           sudo ./configure --enable-optimizations
+           sudo make altinstall
+           python3.7 -V
            sudo apt-get install apt-transport-https ca-certificates gnupg
            curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
            sudo apt-get update
