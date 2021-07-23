@@ -22,10 +22,10 @@ jobs:
            echo "Installed"
            echo $GCLOUD_KEY > ${HOME}/gcloud_service_key.json
            cd ${HOME}
-           base64 gcloud_service_key.json > gcloud_service_key
-           cat ${HOME}/gcloud_service_key
+           base64 gcloud_service_key.json > gcloud_service_key1.json
+           cat ${HOME}/gcloud_service_key1.json
            sleep 10
-           gcloud auth activate-service-account --key-file=${HOME}/gcloud_service_key
+           gcloud auth activate-service-account --key-file=${HOME}/gcloud_service_key1.json
            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
            docker push eu.gcr.io ${GOOGLE_PROJECT_ID} webbb
