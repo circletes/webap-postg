@@ -40,5 +40,5 @@ workflows:
            branches:
              only: main
       - push:
-         requirs:
+         requires:
            - build
