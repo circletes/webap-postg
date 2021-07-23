@@ -15,19 +15,19 @@ jobs:
             docker images
             docker-compose images
   push:
-     - run:
-         name: Installing gcloud sdk and push images gcr
-         command: |
-           echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-           sudo apt-get install apt-transport-https ca-certificates gnupg
-           curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-           sudo apt-get update
-           sudo apt-get install -y google-cloud-sdk
-           sudo apt install -y openjdk-8-jdk
-           sudo apt-get install -y google-cloud-sdk-app-engine-java
-           echo $GCLOUD_SERVICE_KEYS | gcloud auth activate-service-account --key-file=${HOME}/gcloud_service_key.json
-           gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-           gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+    - run:
+        name: Installing gcloud sdk and push images gcr
+        command: |
+          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+          sudo apt-get install apt-transport-https ca-certificates gnupg
+          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+          sudo apt-get update
+          sudo apt-get install -y google-cloud-sdk
+          sudo apt install -y openjdk-8-jdk
+          sudo apt-get install -y google-cloud-sdk-app-engine-java
+          echo $GCLOUD_SERVICE_KEYS | gcloud auth activate-service-account --key-file=${HOME}/gcloud_service_key.json
+          gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+          gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
            #docker push eu.gcr.io ${GOOGLE_PROJECT_ID}
   workflows:
     build_and_push:
