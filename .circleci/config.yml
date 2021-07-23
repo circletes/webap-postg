@@ -15,6 +15,7 @@ jobs:
             docker images
             docker-compose images
   push:
+    machine: true
     steps:
      - run:
          name: Installing gcloud sdk and push images gcr
