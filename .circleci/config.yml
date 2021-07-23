@@ -20,10 +20,12 @@ jobs:
            sudo apt-get update
            sudo apt-get install -y google-cloud-sdk
            echo "Installed"
-           echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud_service_key.json
-           cat ${HOME}/gcloud_service_key.json
+           echo $GCLOUD_KEY > ${HOME}/gcloud_service_key.json
+           cd ${HOME}
+           base64 gcloud_service_key.json > gcloud_service_key
+           cat ${HOME}/gcloud_service_key
            sleep 10
-           gcloud auth activate-service-account --key-file=${HOME}/gcloud_service_key.json
+           gcloud auth activate-service-account --key-file=${HOME}/gcloud_service_key
            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
            docker push eu.gcr.io ${GOOGLE_PROJECT_ID} webbb
