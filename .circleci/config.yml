@@ -40,4 +40,4 @@ workflows:
           only: main
       - push:
         requirs:
-          -build
+          - build
