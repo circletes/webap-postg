@@ -32,7 +32,7 @@ workflows:
       - build:
          filters:
            branches:
-             only: main
+             only: master
       - push:
          requires:
            - build
