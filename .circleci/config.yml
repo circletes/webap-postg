@@ -20,7 +20,7 @@ jobs:
            sudo apt-get update
            sudo apt-get install -y google-cloud-sdk
            echo "Installed"
-           echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud_service_key.txt
+           echo ${GCLOUD_SERVICE_KEY} > ${HOME}/gcloud_service_key.txt
            gcloud auth activate-service-account --key-file=${HOME}/gcloud_service_key.txt
            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
