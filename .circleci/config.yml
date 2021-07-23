@@ -31,10 +31,11 @@ jobs:
            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
            # docker push eu.gcr.io ${GOOGLE_PROJECT_ID}
-#workflows:
-#  build_and_push:
-#    jobs:
-#      -build
-#      -push:
-#        requirs:
-#          -build
+workflows:
+  version: 2.1
+  build_and_push:
+    jobs:
+      -build
+      -push:
+        requirs:
+          -build
